@@ -39,7 +39,7 @@ router.post("/", function(req, res){
 router.get("/employee", function(req, res){
     Employee.find({},function(err, employees){
         if(err){
-            console.log(err);
+            throw err;
         } else {
             res.render("employee",{employees:employees});
         }
@@ -50,7 +50,7 @@ router.get("/employee", function(req, res){
 router.get("/employee/:id/edit", function(req, res) {
     Employee.findById(req.params.id, function(err, employee){
         if(err){
-            console.log(err);
+            throw err;
             res.redirect("/upload/employee");
         } else {
             res.render("edit",{employee:employee});
@@ -62,7 +62,7 @@ router.get("/employee/:id/edit", function(req, res) {
 router.put("/employee/:id", function(req, res){
     Employee.findByIdAndUpdate(req.params.id , req.body.employee ,function(err, updateData){
        if(err){
-          console.log(err);
+          throw err;
           res.redirect("/upload/employee");
        } else {
            res.redirect("/upload/employee");
@@ -74,7 +74,7 @@ router.put("/employee/:id", function(req, res){
 router.delete("/employee/:id", function(req, res){
    Employee.findByIdAndRemove(req.params.id, function(err){
      if(err){
-         console.log(err);
+         throw err;
          res.redirect("/upload/employee");
      }  else {
          res.redirect("/upload/employee");
